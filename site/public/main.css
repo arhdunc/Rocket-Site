@@ -158,8 +158,9 @@ body {
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: center;
+  margin-top: 0.5rem;
 }
 
 .filter-group {
@@ -176,41 +177,177 @@ body {
   margin-right: 0.5rem;
 }
 
-.filter-btn {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
+.filter-chip {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--border-color);
   border-radius: 2rem;
   background-color: var(--bg-card);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.875rem;
+  font-weight: 500;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-height: 2.5rem;
+  border-style: solid;
+  line-height: 1.2;
 }
 
-.filter-btn:hover {
+.filter-chip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.filter-chip:hover::before {
+  left: 100%;
+}
+
+.filter-chip:hover {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  transform: translateY(-1px);
 }
 
-.filter-btn.active {
-  background-color: var(--accent-primary);
+.filter-chip:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.filter-chip.active {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
   border-color: var(--accent-primary);
   color: white;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  font-weight: 600;
 }
 
-.clear-filters {
+.filter-chip.active:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-primary));
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+/* Special styling for specific filter types */
+.filter-chip[data-type="clear"] {
   background-color: var(--danger);
   border-color: var(--danger);
   color: white;
+  font-weight: 600;
 }
 
-.clear-filters:hover {
+.filter-chip[data-type="clear"]:hover {
   background-color: #c82333;
   border-color: #c82333;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.filter-chip[data-type="share"] {
+  background: linear-gradient(135deg, var(--success), #20c997);
+  border-color: var(--success);
+  color: white;
+  font-weight: 600;
+}
+
+.filter-chip[data-type="share"]:hover {
+  background: linear-gradient(135deg, #218838, var(--success));
+  border-color: #218838;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Category-specific styling */
+.filter-chip[data-type="category"] {
+  border-left: 4px solid currentColor;
+  padding-left: 1rem;
+}
+
+.filter-chip[data-type="category"]:hover,
+.filter-chip[data-type="category"].active {
+  border-left-width: 4px;
+}
+
+/* Platform-specific styling */
+.filter-chip[data-type="platform"] {
+  border-top: 3px solid currentColor;
+  position: relative;
+}
+
+.filter-chip[data-type="platform"]:hover,
+.filter-chip[data-type="platform"].active {
+  border-top-width: 3px;
+}
+
+/* Dark mode specific enhancements */
+[data-theme="dark"] .filter-chip {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .filter-chip:hover {
+  box-shadow: 0 4px 16px rgba(77, 171, 247, 0.2);
+}
+
+[data-theme="dark"] .filter-chip.active {
+  box-shadow: 0 4px 16px rgba(77, 171, 247, 0.4);
+}
+
+[data-theme="dark"] .filter-chip[data-type="clear"]:hover {
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+[data-theme="dark"] .filter-chip[data-type="share"]:hover {
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+}
+
+/* Responsive design for filter chips */
+@media (max-width: 768px) {
+  .filters {
+    gap: 0.5rem;
+  }
+  
+  .filter-chip {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+    min-height: 2.2rem;
+  }
+  
+  .filter-chip[data-type="category"] {
+    padding-left: 0.8rem;
+    border-left-width: 3px;
+  }
+  
+  .filter-chip[data-type="platform"] {
+    border-top-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-chip {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    min-height: 2rem;
+    gap: 0.3rem;
+  }
+}
+
+/* Focus states for accessibility */
+.filter-chip:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
 }
 
 /* Main Content */
@@ -496,7 +633,7 @@ body {
     gap: 0.25rem;
   }
   
-  .filter-btn {
+  .filter-chip {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
@@ -544,7 +681,7 @@ body {
 
 /* Focus styles for accessibility */
 .search-input:focus,
-.filter-btn:focus,
+.filter-chip:focus,
 .btn:focus,
 .theme-toggle:focus {
   outline: 2px solid var(--accent-primary);
@@ -568,5 +705,56 @@ html {
     break-inside: avoid;
     box-shadow: none;
     border: 1px solid #ccc;
+  }
+}
+/* Enhanced filter chip hover effects with custom colors */
+.filter-chip[data-type="category"]:hover {
+  border-color: var(--filter-color) !important;
+  color: var(--filter-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--filter-color);
+}
+
+.filter-chip[data-type="platform"]:hover {
+  border-color: var(--filter-color) !important;
+  color: var(--filter-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--filter-color);
+}
+
+/* Active state enhancements */
+.filter-chip[data-type="category"].active,
+.filter-chip[data-type="platform"].active {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Animation for filter changes */
+.filters {
+  animation: filterSlideIn 0.3s ease-out;
+}
+
+@keyframes filterSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Filter chip pulse animation when active */
+.filter-chip.active {
+  animation: chipPulse 0.3s ease-out;
+}
+
+@keyframes chipPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }

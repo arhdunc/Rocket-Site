@@ -21,6 +21,7 @@ class DashboardHub {
       searches: JSON.parse(localStorage.getItem('dashboard-hub-searches') || '[]'),
     };
 
+    console.log('DashboardHub constructor called');
     this.init();
   }
 
@@ -40,6 +41,7 @@ class DashboardHub {
   }
 
   async loadData() {
+    console.log('Loading dashboard data...');
     try {
       // Try to load from pageTreeData.rocketGenerated.json which contains all page metadata
       const response = await fetch('/pageTreeData.rocketGenerated.json');
@@ -70,6 +72,7 @@ class DashboardHub {
 
     // Extract categories and platforms dynamically from dashboard data
     this.extractCategoriesAndPlatforms();
+    console.log('Dashboard data loaded:', this.dashboards.length, 'dashboards');
     this.filteredDashboards = [...this.dashboards];
   }
 
@@ -238,7 +241,12 @@ class DashboardHub {
           `<button class="filter-chip ${
             this.currentFilters.category === category.id ? 'active' : ''
           }" 
-                data-type="category" data-value="${category.id}">
+                data-type="category" data-value="${category.id}"
+                style="--filter-color: ${category.color}; ${
+            this.currentFilters.category === category.id
+              ? `background: linear-gradient(135deg, ${category.color}, ${category.color}dd); border-color: ${category.color}; color: white;`
+              : `border-color: ${category.color}40; color: ${category.color};`
+          }">
           ${category.icon} ${category.name}
         </button>`,
       ),
@@ -247,11 +255,16 @@ class DashboardHub {
           `<button class="filter-chip ${
             this.currentFilters.platform === platform.id ? 'active' : ''
           }"
-                data-type="platform" data-value="${platform.id}">
+                data-type="platform" data-value="${platform.id}"
+                style="--filter-color: ${platform.color}; ${
+            this.currentFilters.platform === platform.id
+              ? `background: linear-gradient(135deg, ${platform.color}, ${platform.color}dd); border-color: ${platform.color}; color: white;`
+              : `border-color: ${platform.color}40; color: ${platform.color};`
+          }">
           ${platform.name}
         </button>`,
       ),
-      '<button class="filter-chip" data-type="clear">Clear All</button>',
+      '<button class="filter-chip" data-type="clear">🗑️ Clear All</button>',
       '<button class="filter-chip" data-type="share">📤 Share Favorites</button>',
     ];
 
