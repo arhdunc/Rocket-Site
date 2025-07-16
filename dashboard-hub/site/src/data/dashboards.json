@@ -1,0 +1,140 @@
+{
+  "dashboards": [
+    {
+      "id": "sales-overview",
+      "title": "Sales Overview Dashboard",
+      "description": "Weekly and monthly sales performance metrics, revenue trends, and target tracking",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiNjU2YWQwOGQtMzI",
+      "platform": "Power BI",
+      "category": "Sales",
+      "tags": ["sales", "revenue", "targets", "weekly", "monthly"],
+      "image": "/images/sales-overview.png",
+      "lastUpdated": "2024-01-15",
+      "isActive": true
+    },
+    {
+      "id": "financial-kpis",
+      "title": "Financial KPIs",
+      "description": "Key financial metrics including P&L, cash flow, and budget variance analysis",
+      "url": "https://tableau.company.com/views/FinancialKPIs/Dashboard1",
+      "platform": "Tableau",
+      "category": "Finance",
+      "tags": ["finance", "kpi", "budget", "profit", "cash-flow"],
+      "image": "/images/financial-kpis.png",
+      "lastUpdated": "2024-01-12",
+      "isActive": true
+    },
+    {
+      "id": "customer-analytics",
+      "title": "Customer Analytics",
+      "description": "Customer acquisition, retention, and satisfaction metrics with demographic breakdowns",
+      "url": "https://sharepoint.company.com/sites/analytics/customer-dashboard",
+      "platform": "SharePoint",
+      "category": "Marketing",
+      "tags": ["customers", "retention", "acquisition", "satisfaction", "demographics"],
+      "image": "/images/customer-analytics.png",
+      "lastUpdated": "2024-01-10",
+      "isActive": true
+    },
+    {
+      "id": "system-health",
+      "title": "System Health Monitor",
+      "description": "Real-time system performance, uptime, and error rate monitoring for critical applications",
+      "url": "https://k8s-dashboard.company.com/monitoring/systems",
+      "platform": "Kubernetes",
+      "category": "Operations",
+      "tags": ["monitoring", "uptime", "performance", "errors", "real-time"],
+      "image": "/images/system-health.png",
+      "lastUpdated": "2024-01-16",
+      "isActive": true
+    },
+    {
+      "id": "hr-metrics",
+      "title": "HR Metrics Dashboard",
+      "description": "Employee satisfaction, turnover rates, recruitment pipeline, and diversity metrics",
+      "url": "https://python-dash.company.com/hr-dashboard",
+      "platform": "Python Dash",
+      "category": "Human Resources",
+      "tags": ["hr", "employees", "turnover", "recruitment", "diversity"],
+      "image": "/images/hr-metrics.png",
+      "lastUpdated": "2024-01-08",
+      "isActive": true
+    },
+    {
+      "id": "inventory-tracking",
+      "title": "Inventory Management",
+      "description": "Stock levels, reorder points, supplier performance, and inventory turnover analysis",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiNzg5YWQwOGQtNDI",
+      "platform": "Power BI",
+      "category": "Operations",
+      "tags": ["inventory", "stock", "suppliers", "reorder", "turnover"],
+      "image": "/images/inventory-tracking.png",
+      "lastUpdated": "2024-01-14",
+      "isActive": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "sales",
+      "name": "Sales",
+      "color": "#4CAF50",
+      "icon": "📊"
+    },
+    {
+      "id": "finance",
+      "name": "Finance", 
+      "color": "#2196F3",
+      "icon": "💰"
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "color": "#FF9800",
+      "icon": "📈"
+    },
+    {
+      "id": "operations",
+      "name": "Operations",
+      "color": "#9C27B0",
+      "icon": "⚙️"
+    },
+    {
+      "id": "human-resources",
+      "name": "Human Resources",
+      "color": "#E91E63",
+      "icon": "👥"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "power-bi",
+      "name": "Power BI",
+      "color": "#F2C811",
+      "logo": "/images/powerbi-logo.png"
+    },
+    {
+      "id": "tableau",
+      "name": "Tableau",
+      "color": "#E97627",
+      "logo": "/images/tableau-logo.png"
+    },
+    {
+      "id": "sharepoint",
+      "name": "SharePoint",
+      "color": "#0078D4",
+      "logo": "/images/sharepoint-logo.png"
+    },
+    {
+      "id": "kubernetes",
+      "name": "Kubernetes",
+      "color": "#326CE5",
+      "logo": "/images/k8s-logo.png"
+    },
+    {
+      "id": "python-dash",
+      "name": "Python Dash",
+      "color": "#3F4F75",
+      "logo": "/images/dash-logo.png"
+    }
+  ]
+}

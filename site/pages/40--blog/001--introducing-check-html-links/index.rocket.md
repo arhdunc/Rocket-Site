@@ -1,9 +1,9 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '40--blog/001--introducing-check-html-links/index.rocket.md';
-import { html, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
+import { html } from '../../recursive.data.js';
 import { layout } from '../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
+export { html, layout };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore

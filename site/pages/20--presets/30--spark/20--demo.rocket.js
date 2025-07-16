@@ -1,8 +1,7 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '20--presets/30--spark/20--demo.rocket.js';
-// prettier-ignore
-import { html, setupUnifiedPlugins, components as originalComponents, openGraphLayout } from '../../recursive.data.js';
-export { html, setupUnifiedPlugins, openGraphLayout };
+import { html } from '../../recursive.data.js';
+export { html };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
@@ -27,10 +26,11 @@ export const layout = new LayoutHome({
   siteName: 'Rocket',
 });
 
+import { rocketComponents } from '@rocket/components/components.js';
 import { sparkComponents } from '@rocket/spark/components.js';
 
 export const components = {
-  ...originalComponents,
+  ...rocketComponents,
   ...sparkComponents,
 };
 

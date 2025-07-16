@@ -1,7 +1,7 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'sitemap.xml.rocket.js';
-import { html, setupUnifiedPlugins, components, openGraphLayout } from './recursive.data.js';
-export { html, setupUnifiedPlugins, components, openGraphLayout };
+import { html } from './recursive.data.js';
+export { html };
 /* END - Rocket auto generated - do not touch */
 
 import { LayoutSitemap } from '@rocket/engine';

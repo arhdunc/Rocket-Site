@@ -1,7 +1,7 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'opengraph.rocket.js';
-import { html, setupUnifiedPlugins, components, openGraphLayout } from './recursive.data.js';
-export { html, setupUnifiedPlugins, components, openGraphLayout };
+import { html } from './recursive.data.js';
+export { html };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
