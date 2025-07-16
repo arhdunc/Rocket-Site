@@ -1,8 +1,8 @@
 {
-  "title": "Dashboard Hub",
+  "title": "SPOT Hub",
   "h1": "unexpected final partIndex: 2 !== 3",
-  "name": "Dashboard Hub",
-  "menuLinkText": "Dashboard Hub",
+  "name": "SPOT Hub",
+  "menuLinkText": "SPOT Hub",
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
@@ -33,7 +33,7 @@
     "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
     "my-counter": "#src/components/MyCounter.js::MyCounter"
   },
-  "description": "Central portal for accessing multiple dashboards and reports",
+  "description": "Your central portal for accessing business intelligence dashboards and analytics reports",
   "needsLoader": true,
   "subTitle": "Everyone can code a website",
   "children": [

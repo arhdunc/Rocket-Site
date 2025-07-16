@@ -4,8 +4,9 @@ import { html, layout } from './recursive.data.js';
 export { html, layout };
 /* END - Rocket auto generated - do not touch */
 
-export const title = 'Dashboard Hub';
-export const description = 'Central portal for accessing multiple dashboards and reports';
+export const title = 'SPOT Hub';
+export const description =
+  'Your central portal for accessing business intelligence dashboards and analytics reports';
 
 export default () => html`
   <section class="search-section">

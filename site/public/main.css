@@ -1,6 +1,6 @@
 /* CSS Custom Properties for theming */
 :root {
-  /* Light theme colors */
+  /* Light theme colors - SPOT Hub Custom Palette */
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --bg-card: #ffffff;
@@ -10,11 +10,28 @@
   --border-color: #dee2e6;
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
-  --accent-primary: #007bff;
-  --accent-hover: #0056b3;
-  --success: #28a745;
-  --warning: #ffc107;
-  --danger: #dc3545;
+  
+  /* SPOT Hub Custom Colors - Light Mode */
+  --color-primary: #66B2A3;      /* Teal */
+  --color-primary-dark: #2F7E68; /* Dark Teal */
+  --color-secondary: #E27D3E;    /* Orange */
+  --color-secondary-dark: #B2512C; /* Dark Orange */
+  --color-tertiary: #7A5C8E;     /* Purple */
+  --color-tertiary-dark: #55406D; /* Dark Purple */
+  --color-accent: #F4D06F;       /* Yellow */
+  --color-info: #3E5C76;         /* Blue-Grey */
+  
+  /* Header color */
+  --header-bg: #55406D;          /* Dark Purple for header */
+  --header-text: #ffffff;
+  
+  /* Semantic colors using custom palette */
+  --accent-primary: var(--color-primary);
+  --accent-hover: var(--color-primary-dark);
+  --success: var(--color-primary);
+  --warning: var(--color-accent);
+  --danger: var(--color-secondary);
+  --info: var(--color-info);
   
   /* Layout variables */
   --container-max-width: 1200px;
@@ -34,10 +51,29 @@
   --border-color: #404040;
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.4);
-  --accent-primary: #4dabf7;
-  --accent-hover: #339af0;
+  
+  /* SPOT Hub Custom Colors - Dark Mode */
+  --color-primary: #6DC5B7;      /* Light Teal */
+  --color-primary-dark: #3E9D80; /* Dark Teal */
+  --color-secondary: #E67F36;    /* Light Orange */
+  --color-secondary-dark: #BC4C28; /* Dark Orange */
+  --color-tertiary: #876FA0;     /* Light Purple */
+  --color-tertiary-dark: #78539A; /* Dark Purple */
+  --color-accent: #E6C45A;       /* Light Yellow */
+  --color-info: #2B9BC6;         /* Light Blue */
+  
+  /* Header remains same dark purple in both modes */
+  --header-bg: #55406D;
+  --header-text: #ffffff;
+  
+  /* Semantic colors using custom palette */
+  --accent-primary: var(--color-primary);
+  --accent-hover: var(--color-primary-dark);
+  --success: var(--color-primary);
+  --warning: var(--color-accent);
+  --danger: var(--color-secondary);
+  --info: var(--color-info);
 }
-
 /* Base styles */
 * {
   box-sizing: border-box;
@@ -63,7 +99,7 @@ body {
 
 /* Header */
 .header {
-  background-color: var(--bg-card);
+  background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow);
   position: sticky;
@@ -81,7 +117,7 @@ body {
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--header-text);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -757,4 +793,61 @@ html {
   100% {
     transform: scale(1);
   }
+}
+
+/* Enhanced theme toggle button */
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--header-text);
+  backdrop-filter: blur(10px);
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.theme-toggle:hover::before {
+  left: 100%;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Monochrome symbols for theme toggle */
+.theme-toggle.light-mode::after {
+  content: "☀";
+  font-weight: normal;
+}
+
+.theme-toggle.dark-mode::after {
+  content: "☾";
+  font-weight: normal;
 }

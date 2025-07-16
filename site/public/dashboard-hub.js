@@ -114,12 +114,12 @@ class DashboardHub {
 
     // Define category colors and icons
     const categoryDefaults = {
-      Sales: { color: '#4CAF50', icon: '📊' },
-      Finance: { color: '#2196F3', icon: '💰' },
-      Marketing: { color: '#FF9800', icon: '📈' },
-      Operations: { color: '#9C27B0', icon: '⚙️' },
-      'Human Resources': { color: '#E91E63', icon: '👥' },
-      General: { color: '#607D8B', icon: '📋' },
+      Sales: { color: '#66B2A3', icon: '📊' },
+      Finance: { color: '#2F7E68', icon: '💰' },
+      Marketing: { color: '#E27D3E', icon: '📈' },
+      Operations: { color: '#7A5C8E', icon: '⚙️' },
+      'Human Resources': { color: '#55406D', icon: '👥' },
+      General: { color: '#3E5C76', icon: '📋' },
     };
 
     // Define platform colors
@@ -206,29 +206,54 @@ class DashboardHub {
   }
 
   setupThemeToggle() {
+    console.log('Setting up theme toggle...');
+
     // Initialize theme from localStorage
-    const currentTheme = localStorage.getItem('dashboard-hub-theme') || 'light';
+    const currentTheme = localStorage.getItem('spot-hub-theme') || 'light';
     document.body.setAttribute('data-theme', currentTheme);
 
     const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return;
+    if (!themeToggle) {
+      console.warn('Theme toggle button not found');
+      return;
+    }
 
-    // Set initial icon
-    themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    // Set initial icon and class
+    themeToggle.textContent = currentTheme === 'dark' ? '☀' : '☾';
+    themeToggle.classList.remove('light-mode', 'dark-mode');
+    themeToggle.classList.add(currentTheme === 'dark' ? 'dark-mode' : 'light-mode');
+
+    // Add click event listener
+    themeToggle.addEventListener('click', () => {
+      console.log('Theme toggle clicked!');
+      this.toggleTheme();
+    });
+
+    console.log('Theme toggle initialized with theme:', currentTheme);
   }
 
   toggleTheme() {
+    console.log('Toggling theme...');
     const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
+    const currentTheme = body.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('dashboard-hub-theme', newTheme);
+    console.log('Current theme:', currentTheme, '-> New theme:', newTheme);
 
+    // Update body attribute
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('spot-hub-theme', newTheme);
+
+    // Update button icon and class
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      themeToggle.textContent = newTheme === 'dark' ? '☀' : '☾';
+      themeToggle.classList.remove('light-mode', 'dark-mode');
+      themeToggle.classList.add(newTheme === 'dark' ? 'dark-mode' : 'light-mode');
     }
+
+    console.log('Theme switched to:', newTheme);
+    console.log('Body data-theme is now:', body.getAttribute('data-theme'));
   }
 
   renderFilters() {
