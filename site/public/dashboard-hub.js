@@ -203,6 +203,53 @@ class DashboardHub {
     if (themeToggle) {
       themeToggle.addEventListener('click', () => this.toggleTheme());
     }
+
+    // Set up filter container event delegation
+    const filterContainer = document.getElementById('filter-container');
+    if (filterContainer) {
+      filterContainer.addEventListener('click', e => {
+        if (!e.target.classList.contains('filter-chip')) return;
+
+        const type = e.target.dataset.type;
+        const value = e.target.dataset.value;
+
+        switch (type) {
+          case 'category':
+            this.currentFilters.category = this.currentFilters.category === value ? '' : value;
+            break;
+          case 'platform':
+            this.currentFilters.platform = this.currentFilters.platform === value ? '' : value;
+            break;
+          case 'clear':
+            this.clearFilters();
+            return; // Early return to avoid double execution
+        }
+
+        this.renderFilters();
+        this.applyFilters();
+      });
+    }
+
+    // Set up dashboard container event delegation
+    const dashboardContainer = document.getElementById('dashboard-grid');
+    if (dashboardContainer) {
+      dashboardContainer.addEventListener('click', e => {
+        const dashboardId = e.target.closest('[data-dashboard-id]')?.dataset.dashboardId;
+        if (!dashboardId) return;
+
+        if (e.target.classList.contains('btn-favorite')) {
+          e.preventDefault();
+
+          this.toggleFavorite(dashboardId);
+        } else if (e.target.classList.contains('btn-copy-url')) {
+          e.preventDefault();
+          const url = e.target.dataset.url;
+          this.copyShortUrl(url, e.target);
+        } else if (e.target.classList.contains('btn-primary')) {
+          this.trackClick(dashboardId);
+        }
+      });
+    }
   }
 
   setupThemeToggle() {
@@ -290,35 +337,9 @@ class DashboardHub {
         </button>`,
       ),
       '<button class="filter-chip" data-type="clear">🗑️ Clear All</button>',
-      '<button class="filter-chip" data-type="share">📤 Share Favorites</button>',
     ];
 
     container.innerHTML = filterElements.join('');
-
-    container.addEventListener('click', e => {
-      if (!e.target.classList.contains('filter-chip')) return;
-
-      const type = e.target.dataset.type;
-      const value = e.target.dataset.value;
-
-      switch (type) {
-        case 'category':
-          this.currentFilters.category = this.currentFilters.category === value ? '' : value;
-          break;
-        case 'platform':
-          this.currentFilters.platform = this.currentFilters.platform === value ? '' : value;
-          break;
-        case 'clear':
-          this.clearFilters();
-          break;
-        case 'share':
-          this.shareFavorites();
-          return;
-      }
-
-      this.renderFilters();
-      this.applyFilters();
-    });
   }
 
   renderDashboards() {
@@ -341,18 +362,6 @@ class DashboardHub {
       .join('');
 
     container.innerHTML = dashboardElements;
-
-    container.addEventListener('click', e => {
-      const dashboardId = e.target.closest('[data-dashboard-id]')?.dataset.dashboardId;
-      if (!dashboardId) return;
-
-      if (e.target.classList.contains('btn-favorite')) {
-        e.preventDefault();
-        this.toggleFavorite(dashboardId);
-      } else if (e.target.classList.contains('btn-primary')) {
-        this.trackClick(dashboardId);
-      }
-    });
   }
 
   createDashboardTile(dashboard) {
@@ -387,6 +396,11 @@ class DashboardHub {
             <button class="btn btn-favorite ${isFavorite ? 'active' : ''}" 
                     title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
               ${isFavorite ? '❤️' : '🤍'}
+            </button>
+            <button class="btn btn-copy-url" 
+                    data-url="${dashboard.url}"
+                    title="Copy shortened URL">
+              📋 Copy URL
             </button>
             <a href="${dashboard.url}" 
                target="_blank" 
@@ -475,31 +489,71 @@ class DashboardHub {
     this.showToast(`${dashboard?.title} ${action} favorites`);
   }
 
-  shareFavorites() {
-    if (this.favorites.size === 0) {
-      this.showToast('No favorites to share');
-      return;
+  async copyShortUrl(originalUrl, buttonElement) {
+    try {
+      // Show loading state
+      const originalText = buttonElement.textContent;
+      buttonElement.textContent = '⏳ Copying...';
+      buttonElement.disabled = true;
+
+      // Generate a shortened URL (using a simple hash-based approach)
+      const shortUrl = await this.shortenUrl(originalUrl);
+
+      // Copy to clipboard
+      await navigator.clipboard.writeText(shortUrl);
+
+      // Show success feedback
+      buttonElement.textContent = '✅ Copied!';
+      this.showToast('Shortened URL copied to clipboard!');
+
+      // Reset button after delay
+      setTimeout(() => {
+        buttonElement.textContent = originalText;
+        buttonElement.disabled = false;
+      }, 2000);
+    } catch (error) {
+      console.error('Failed to copy URL:', error);
+
+      // Fallback: show prompt with original URL
+      prompt('Copy this URL:', originalUrl);
+
+      // Reset button
+      buttonElement.textContent = '📋 Copy URL';
+      buttonElement.disabled = false;
+      this.showToast('Copy failed - URL shown in prompt');
+    }
+  }
+
+  async shortenUrl(originalUrl) {
+    // Simple client-side URL shortening using a hash-based approach
+    // In a real application, you might use a service like bit.ly, tinyurl, etc.
+
+    // Generate a short hash from the URL
+    const hash = await this.generateShortHash(originalUrl);
+
+    // Store the mapping in localStorage for this session
+    const shortUrlMap = JSON.parse(localStorage.getItem('spot-hub-short-urls') || '{}');
+    shortUrlMap[hash] = originalUrl;
+    localStorage.setItem('spot-hub-short-urls', JSON.stringify(shortUrlMap));
+
+    // Return a shortened URL that could be processed by your server or handled client-side
+    return `${window.location.origin}/s/${hash}`;
+  }
+
+  async generateShortHash(text) {
+    // Generate a short hash using Web Crypto API
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = new Uint8Array(hashBuffer);
+
+    // Convert to base36 and take first 6 characters for a short code
+    let hash = '';
+    for (let i = 0; i < 6; i++) {
+      hash += (hashArray[i] % 36).toString(36);
     }
 
-    const state = {
-      f: [...this.favorites],
-      s: this.currentFilters.search,
-      c: this.currentFilters.category,
-      p: this.currentFilters.platform,
-      t: this.currentFilters.tags,
-    };
-
-    const encoded = btoa(JSON.stringify(state));
-    const shareUrl = `${window.location.origin}${window.location.pathname}?state=${encoded}`;
-
-    navigator.clipboard
-      .writeText(shareUrl)
-      .then(() => {
-        this.showToast('Share link copied to clipboard!');
-      })
-      .catch(() => {
-        prompt('Copy this link to share your favorites:', shareUrl);
-      });
+    return hash.toUpperCase();
   }
 
   trackClick(dashboardId) {
