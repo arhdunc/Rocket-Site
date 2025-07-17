@@ -1,8 +1,8 @@
 {
   "title": "SPOT Hub",
-  "h1": "unexpected final partIndex: 2 !== 3",
+  "h1": "Welcome to the Dashboard Hub",
   "name": "SPOT Hub",
-  "menuLinkText": "SPOT Hub",
+  "menuLinkText": "Welcome to the Dashboard Hub",
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
@@ -38,7 +38,7 @@
   "subTitle": "Everyone can code a website",
   "children": [
     {
-      "title": "Learning Rocket | Rocket",
+      "title": "SPOT Hub",
       "h1": "Learning Rocket",
       "headlinesWithId": [
         {
@@ -336,7 +336,7 @@
           ]
         },
         {
-          "title": "Basics | Rocket",
+          "title": "SPOT Hub",
           "h1": "Basics",
           "name": "Basics",
           "menuLinkText": "Basics",
@@ -652,7 +652,7 @@
               "needsLoader": true
             },
             {
-              "title": "Layouts | Rocket",
+              "title": "SPOT Hub",
               "h1": "Layouts",
               "headlinesWithId": [
                 {
@@ -760,7 +760,7 @@
               "needsLoader": true
             },
             {
-              "title": "Navigation | Rocket",
+              "title": "SPOT Hub",
               "h1": "Navigation",
               "headlinesWithId": [
                 {
@@ -933,7 +933,7 @@
               "needsLoader": true
             },
             {
-              "title": "Assets | Rocket",
+              "title": "SPOT Hub",
               "h1": "Assets",
               "headlinesWithId": [
                 {
@@ -1017,7 +1017,7 @@
               "needsLoader": true
             },
             {
-              "title": "Configuration | Rocket",
+              "title": "SPOT Hub",
               "h1": "Configuration",
               "headlinesWithId": [
                 {
@@ -1136,7 +1136,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Social Media | Rocket",
+              "title": "SPOT Hub",
               "h1": "Social Media",
               "headlinesWithId": [
                 {
@@ -1306,7 +1306,7 @@
               "needsLoader": true
             },
             {
-              "title": "Markdown | Rocket",
+              "title": "SPOT Hub",
               "h1": "Markdown",
               "headlinesWithId": [
                 {
@@ -1355,7 +1355,7 @@
               "needsLoader": true
             },
             {
-              "title": "Go Live | Rocket",
+              "title": "SPOT Hub",
               "h1": "Go Live",
               "headlinesWithId": [
                 {
@@ -1468,7 +1468,7 @@
               "needsLoader": true
             },
             {
-              "title": "Styles And CSS | Rocket",
+              "title": "SPOT Hub",
               "h1": "Styles And CSS",
               "headlinesWithId": [
                 {
@@ -1603,7 +1603,7 @@
               "subTitle": "Use web fonts to ensure a unique and consistent experience."
             },
             {
-              "title": "Data Fetching | Rocket",
+              "title": "SPOT Hub",
               "h1": "Data Fetching",
               "headlinesWithId": [
                 {
@@ -1652,7 +1652,7 @@
               "needsLoader": true
             },
             {
-              "title": "Deploying Rocket | Rocket",
+              "title": "SPOT Hub",
               "h1": "Deploying Rocket",
               "headlinesWithId": [
                 {
@@ -1705,7 +1705,7 @@
       ]
     },
     {
-      "title": "Themes | Rocket",
+      "title": "SPOT Hub",
       "h1": "Themes",
       "headlinesWithId": [
         {
@@ -1787,7 +1787,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "SPOT Hub",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -1831,7 +1831,7 @@
               "needsLoader": true
             },
             {
-              "title": "Card Icon | Rocket",
+              "title": "SPOT Hub",
               "h1": "Card Icon",
               "headlinesWithId": [
                 {
@@ -1875,7 +1875,7 @@
               "needsLoader": true
             },
             {
-              "title": "Inline Notification | Rocket",
+              "title": "SPOT Hub",
               "h1": "Inline Notification",
               "headlinesWithId": [
                 {
@@ -1964,7 +1964,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "SPOT Hub",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -2018,7 +2018,7 @@
               "needsLoader": true
             },
             {
-              "title": "Service Worker | Rocket",
+              "title": "SPOT Hub",
               "h1": "Service Worker",
               "headlinesWithId": [
                 {
@@ -2117,7 +2117,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "SPOT Hub",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -2202,7 +2202,7 @@
       ]
     },
     {
-      "title": "Tools | Rocket",
+      "title": "SPOT Hub",
       "h1": "Tools",
       "headlinesWithId": [
         {
@@ -2401,7 +2401,7 @@
           ]
         },
         {
-          "title": "Markdown Javascript | Rocket",
+          "title": "SPOT Hub",
           "h1": "Markdown Javascript",
           "name": "Markdown Javascript",
           "menuLinkText": "Markdown Javascript",
@@ -2554,7 +2554,7 @@
               "subTitle": "Executable JavaScript in markdown by annotating code blocks"
             },
             {
-              "title": "Preview | Rocket",
+              "title": "SPOT Hub",
               "h1": "Preview",
               "headlinesWithId": [
                 {
@@ -2679,7 +2679,7 @@
           ]
         },
         {
-          "title": "Rollup Config | Rocket",
+          "title": "SPOT Hub",
           "h1": "Rollup Config",
           "name": "Rollup Config",
           "menuLinkText": "Rollup Config",
@@ -2789,7 +2789,7 @@
           ]
         },
         {
-          "title": "Check Html Links | Rocket",
+          "title": "SPOT Hub",
           "h1": "Check Html Links",
           "name": "Check Html Links",
           "menuLinkText": "Check Html Links",

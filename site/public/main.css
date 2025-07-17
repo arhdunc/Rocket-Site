@@ -33,6 +33,11 @@
   --danger: var(--color-secondary);
   --info: var(--color-info);
   
+  /* Contrast-safe text colors for accessibility */
+  --text-on-yellow: #2c2c2c;     /* Dark text for yellow backgrounds */
+  --text-on-light: #2c2c2c;      /* Dark text for light backgrounds */
+  --text-on-dark: #ffffff;       /* White text for dark backgrounds */
+  
   /* Layout variables */
   --container-max-width: 1200px;
   --grid-gap: 1.5rem;
@@ -73,6 +78,11 @@
   --warning: var(--color-accent);
   --danger: var(--color-secondary);
   --info: var(--color-info);
+  
+  /* Contrast-safe text colors for dark mode */
+  --text-on-yellow: #2c2c2c;     /* Dark text for yellow backgrounds */
+  --text-on-light: #2c2c2c;      /* Dark text for light backgrounds */
+  --text-on-dark: #ffffff;       /* White text for dark backgrounds */
 }
 /* Base styles */
 * {
@@ -157,6 +167,39 @@ body {
 .search-container {
   max-width: 800px;
   margin: 0 auto;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+}
+
+.welcome-message h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.welcome-message p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .welcome-message h1 {
+    font-size: 2rem;
+  }
+  
+  .welcome-message p {
+    font-size: 1rem;
+  }
 }
 
 .search-bar {
@@ -430,6 +473,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dashboard-image::before {
@@ -440,6 +486,20 @@ body {
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, rgba(0,123,255,0.1), rgba(0,123,255,0.05));
+}
+
+/* Fallback for missing images */
+.dashboard-image::after {
+  content: '📊';
+  font-size: 3rem;
+  color: var(--text-muted);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* Hide the fallback icon when image loads */
+.dashboard-image[style*="background-image"]:not([style*="url('')"])::after {
+  display: none;
 }
 
 .dashboard-content {
@@ -503,9 +563,10 @@ body {
 .tag {
   padding: 0.2rem 0.5rem;
   background-color: var(--bg-secondary);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   border-radius: 0.25rem;
   font-size: 0.75rem;
+  font-weight: 500;
   border: 1px solid var(--border-color);
   cursor: pointer;
   transition: var(--transition);
@@ -520,13 +581,13 @@ body {
 .dashboard-actions {
   display: flex;
   gap: 0.75rem;
-  align-items: center;
+  align-items: stretch; /* This ensures all buttons stretch to the same height */
   margin-top: auto;
 }
 
-/* Buttons */
+/* Buttons - all buttons get same base height */
 .btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   border: 1px solid transparent;
   border-radius: var(--border-radius);
   font-size: 0.9rem;
@@ -539,6 +600,8 @@ body {
   justify-content: center;
   gap: 0.5rem;
   line-height: 1;
+  height: 44px; /* Exact same height for all buttons */
+  box-sizing: border-box;
 }
 
 .btn-primary {
@@ -546,6 +609,7 @@ body {
   color: white;
   border-color: var(--accent-primary);
   flex: 1;
+  padding: 0.75rem 1.5rem; /* Wider padding for primary button */
 }
 
 .btn-primary:hover {
@@ -558,13 +622,45 @@ body {
   background-color: var(--bg-secondary);
   color: var(--text-muted);
   border-color: var(--border-color);
-  padding: 0.75rem;
+  padding: 0.75rem; /* Square padding */
   font-size: 1.2rem;
+  transition: all 0.3s ease;
+  width: 44px; /* Square button */
+  height: 44px; /* Exact same height */
+  min-width: 44px;
+  flex-shrink: 0;
 }
 
 .btn-favorite:hover {
   background-color: var(--bg-card);
   border-color: var(--accent-primary);
+  color: #ffd700;
+  transform: scale(1.05);
+}
+
+.btn-favorite.active {
+  color: #ffd700;
+  border-color: #ffd700;
+  background-color: #fff8dc;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transform: scale(1.02);
+}
+
+.btn-favorite.active:hover {
+  background-color: #fffacd;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  transform: scale(1.08);
+}
+
+/* Dark mode favorite button styling */
+[data-theme="dark"] .btn-favorite.active {
+  background-color: rgba(255, 215, 0, 0.1);
+  border-color: #ffd700;
+  color: #ffd700;
+}
+
+[data-theme="dark"] .btn-favorite.active:hover {
+  background-color: rgba(255, 215, 0, 0.2);
 }
 
 .btn-copy-url {
@@ -572,8 +668,11 @@ body {
   color: var(--text-secondary);
   border-color: var(--border-color);
   font-size: 0.8rem;
-  padding: 0.5rem 0.75rem;
-  min-width: 90px;
+  padding: 0.75rem 1rem; /* Consistent padding */
+  height: 44px; /* Exact same height */
+  min-width: 120px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-copy-url:hover {
@@ -585,11 +684,6 @@ body {
 .btn-copy-url:disabled {
   opacity: 0.7;
   cursor: not-allowed;
-}
-
-.btn-favorite.active {
-  color: #e74c3c;
-  border-color: #e74c3c;
 }
 
 .share-favorites {
@@ -781,6 +875,83 @@ html {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* Fix Power BI filter chip text colors for better visibility */
+/* Light mode - use darker yellow-gold for readability */
+.filter-chip[style*="color: #F2C811"] {
+  color: #B8860B !important;
+  font-weight: 600;
+}
+
+/* Dark mode - use bright yellow for good visibility */
+[data-theme="dark"] .filter-chip[style*="color: #F2C811"] {
+  color: #F2C811 !important;
+  font-weight: 600;
+}
+
+/* Power BI filter chip hover states - subtle enhancement without background change */
+.filter-chip[style*="color: #F2C811"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Power BI active filter chip */
+.filter-chip.active[style*="background"][style*="#F2C811"] {
+  background: linear-gradient(135deg, #F2C811, #E6C45A) !important;
+  color: #2c2c2c !important;
+  border-color: #F2C811 !important;
+  font-weight: 600;
+}
+
+/* Dark mode active Power BI filter chip */
+[data-theme="dark"] .filter-chip.active[style*="background"][style*="#F2C811"] {
+  background: linear-gradient(135deg, #F2C811, #E6C45A) !important;
+  color: #2c2c2c !important;
+  border-color: #F2C811 !important;
+  font-weight: 600;
+}
+
+/* Handle other yellow/light colors with same approach */
+.filter-chip[style*="color: #F4D06F"], 
+.filter-chip[style*="color: #E6C45A"] {
+  color: #B8860B !important;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .filter-chip[style*="color: #F4D06F"], 
+[data-theme="dark"] .filter-chip[style*="color: #E6C45A"] {
+  color: #F4D06F !important;
+  font-weight: 600;
+}
+
+.filter-chip.active[style*="background"][style*="#F4D06F"],
+.filter-chip.active[style*="background"][style*="#E6C45A"] {
+  color: #2c2c2c !important;
+  font-weight: 600;
+}
+
+/* Badge contrast improvements */
+.platform-badge[style*="color: #F4D06F"], 
+.platform-badge[style*="color: #E6C45A"],
+.platform-badge[style*="color: #F2C811"] {
+  color: #2c2c2c !important;
+  font-weight: 600;
+}
+
+.category-badge[style*="background-color: #F4D06F"], 
+.category-badge[style*="background-color: #E6C45A"],
+.category-badge[style*="background-color: #F2C811"] {
+  color: #2c2c2c !important;
+  font-weight: 600;
+}
+
+/* Force dark text on light yellow backgrounds */
+.category-badge[style*="background-color: #FFDD44"],
+.category-badge[style*="background-color: #FFF8DC"],
+.category-badge[style*="background-color: #FFEB3B"] {
+  color: var(--text-on-light) !important;
+  font-weight: 600;
+}
+
 /* Animation for filter changes */
 .filters {
   animation: filterSlideIn 0.3s ease-out;
@@ -869,4 +1040,31 @@ html {
 .theme-toggle.dark-mode::after {
   content: "☾";
   font-weight: normal;
+}
+
+/* Fix platform badge text colors - target inline style colors */
+/* Handle Power BI yellow text color issue specifically */
+.platform-badge[style*="color: #F2C811"] {
+  color: #B8860B !important; /* Darker yellow-gold that's readable on light backgrounds */
+  font-weight: 600;
+}
+
+/* Dark mode - ensure Power BI text is visible and bright */
+[data-theme="dark"] .platform-badge[style*="color: #F2C811"] {
+  color: #F2C811 !important; /* Bright yellow in dark mode */
+  font-weight: 600;
+}
+
+/* Fix platform badge hover behavior - don't let it turn yellow on light backgrounds */
+.platform-badge:hover {
+  background-color: var(--accent-primary) !important;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Dark mode tag improvements */
+[data-theme="dark"] .tag {
+  color: #c0c0c0; /* Brighter color in dark mode */
+  font-weight: 500;
 }

@@ -4,25 +4,6 @@ export const sourceRelativeFilePath = '40--blog/004--enable-progressive-hydratio
 import { html } from '../../recursive.data.js';
 import { layout } from '../recursive.data.js';
 export { html, layout };
-export async function registerCustomElements() {
-  // server-only components
-  // prettier-ignore
-  customElements.define('rocket-social-link', await import('@rocket/components/social-link.js').then(m => m.RocketSocialLink));
-  // prettier-ignore
-  customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
-  // prettier-ignore
-  customElements.define('launch-blog-details', await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails));
-  // prettier-ignore
-  customElements.define('rocket-main', await import('@rocket/components/main.js').then(m => m.RocketMain));
-  // prettier-ignore
-  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
-  // hydrate-able components
-  // prettier-ignore
-  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
-  // prettier-ignore
-  customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
-}
-export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
 import { thomas } from '../../../src/data/authors.js';

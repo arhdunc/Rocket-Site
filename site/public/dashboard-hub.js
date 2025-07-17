@@ -43,31 +43,19 @@ class DashboardHub {
   async loadData() {
     console.log('Loading dashboard data...');
     try {
-      // Try to load from pageTreeData.rocketGenerated.json which contains all page metadata
-      const response = await fetch('/pageTreeData.rocketGenerated.json');
+      // Load from JSON data file
+      const response = await fetch('/src/data/dashboards.json');
       if (response.ok) {
-        const pageTree = await response.json();
-        this.dashboards = this.extractDashboardsFromPageTree(pageTree);
+        const data = await response.json();
+        this.dashboards = data.dashboards || [];
+        console.log('Loaded dashboards from JSON:', this.dashboards.length);
       } else {
-        // Fallback to JSON file if pageTree not available
-        const jsonResponse = await fetch('/src/data/dashboards.json');
-        if (jsonResponse.ok) {
-          const data = await jsonResponse.json();
-          this.dashboards = data.dashboards || [];
-        }
-      }
-    } catch (error) {
-      console.warn('Loading from pageTree failed, trying JSON fallback:', error);
-      try {
-        const response = await fetch('/src/data/dashboards.json');
-        if (response.ok) {
-          const data = await response.json();
-          this.dashboards = data.dashboards || [];
-        }
-      } catch (fallbackError) {
-        console.error('Both pageTree and JSON loading failed:', fallbackError);
+        console.error('Failed to load dashboard data, status:', response.status);
         this.dashboards = [];
       }
+    } catch (error) {
+      console.error('Error loading dashboard data:', error);
+      this.dashboards = [];
     }
 
     // Extract categories and platforms dynamically from dashboard data
@@ -124,12 +112,12 @@ class DashboardHub {
 
     // Define platform colors
     const platformDefaults = {
-      'Power BI': { color: '#F2C811' },
-      Tableau: { color: '#E97627' },
-      SharePoint: { color: '#0078D4' },
-      Kubernetes: { color: '#326CE5' },
-      'Python Dash': { color: '#3F4F75' },
-      Unknown: { color: '#9E9E9E' },
+      'Power BI': { color: '#F2C811', logo: '/src/images/powerbi-logo.png' },
+      Tableau: { color: '#E97627', logo: '/src/images/tableau-logo.png' },
+      SharePoint: { color: '#0078D4', logo: '/src/images/sharepoint-logo.png' },
+      Kubernetes: { color: '#326CE5', logo: '' },
+      'Python Dash': { color: '#3F4F75', logo: '/src/images/plotlydash-logo.jpeg' },
+      Unknown: { color: '#9E9E9E', logo: '' },
     };
 
     this.dashboards.forEach(dashboard => {
@@ -149,7 +137,7 @@ class DashboardHub {
           id: dashboard.platform.toLowerCase().replace(/\s+/g, '-'),
           name: dashboard.platform,
           color: defaults.color,
-          logo: `/images/${dashboard.platform.toLowerCase().replace(/\s+/g, '-')}-logo.png`,
+          logo: defaults.logo || '', // Use the logo from defaults or an empty string
         });
       }
     });
@@ -308,34 +296,38 @@ class DashboardHub {
     if (!container) return;
 
     const filterElements = [
-      ...this.categories.map(
-        category =>
-          `<button class="filter-chip ${
-            this.currentFilters.category === category.id ? 'active' : ''
-          }" 
+      ...this.categories.map(category => {
+        const isActive = this.currentFilters.category === category.id;
+        return `<button class="filter-chip ${isActive ? 'active' : ''}" 
                 data-type="category" data-value="${category.id}"
                 style="--filter-color: ${category.color}; ${
-            this.currentFilters.category === category.id
-              ? `background: linear-gradient(135deg, ${category.color}, ${category.color}dd); border-color: ${category.color}; color: white;`
-              : `border-color: ${category.color}40; color: ${category.color};`
-          }">
+          isActive
+            ? `background: linear-gradient(135deg, ${category.color}, ${
+                category.color
+              }dd); border-color: ${category.color}; color: ${this.getContrastColor(
+                category.color,
+              )};`
+            : `border-color: ${category.color}40; color: ${category.color};`
+        }">
           ${category.icon} ${category.name}
-        </button>`,
-      ),
-      ...this.platforms.map(
-        platform =>
-          `<button class="filter-chip ${
-            this.currentFilters.platform === platform.id ? 'active' : ''
-          }"
+        </button>`;
+      }),
+      ...this.platforms.map(platform => {
+        const isActive = this.currentFilters.platform === platform.id;
+        return `<button class="filter-chip ${isActive ? 'active' : ''}"
                 data-type="platform" data-value="${platform.id}"
                 style="--filter-color: ${platform.color}; ${
-            this.currentFilters.platform === platform.id
-              ? `background: linear-gradient(135deg, ${platform.color}, ${platform.color}dd); border-color: ${platform.color}; color: white;`
-              : `border-color: ${platform.color}40; color: ${platform.color};`
-          }">
+          isActive
+            ? `background: linear-gradient(135deg, ${platform.color}, ${
+                platform.color
+              }dd); border-color: ${platform.color}; color: ${this.getContrastColor(
+                platform.color,
+              )};`
+            : `border-color: ${platform.color}40; color: ${platform.color};`
+        }">
           ${platform.name}
-        </button>`,
-      ),
+        </button>`;
+      }),
       '<button class="filter-chip" data-type="clear">🗑️ Clear All</button>',
     ];
 
@@ -371,7 +363,9 @@ class DashboardHub {
 
     return `
       <div class="dashboard-tile" data-dashboard-id="${dashboard.id}">
-        <div class="dashboard-image" style="background-image: url('${dashboard.image}')">
+        <div class="dashboard-image" style="background-image: url('${
+          dashboard.image || '/src/images/financial-overview.png'
+        }')">
         </div>
         <div class="dashboard-content">
           <h3 class="dashboard-title">${dashboard.title}</h3>
@@ -380,10 +374,12 @@ class DashboardHub {
           <div class="dashboard-meta">
             <span class="platform-badge" style="background-color: ${
               platform?.color || '#gray'
-            }20; color: ${platform?.color || '#gray'}">
+            }20; color: ${platform?.color || '#gray'}; font-weight: 600;">
               ${dashboard.platform}
             </span>
-            <span class="category-badge" style="background-color: ${category?.color || '#gray'}">
+            <span class="category-badge" style="background-color: ${
+              category?.color || '#gray'
+            }; color: ${this.getContrastColor(category?.color || '#gray')}; font-weight: 600;">
               ${category?.icon || '📊'} ${dashboard.category}
             </span>
           </div>
@@ -395,7 +391,7 @@ class DashboardHub {
           <div class="dashboard-actions">
             <button class="btn btn-favorite ${isFavorite ? 'active' : ''}" 
                     title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
-              ${isFavorite ? '❤️' : '🤍'}
+              ${isFavorite ? '⭐' : '☆'}
             </button>
             <button class="btn btn-copy-url" 
                     data-url="${dashboard.url}"
@@ -457,6 +453,25 @@ class DashboardHub {
 
   getPlatformName(platformId) {
     return this.platforms.find(p => p.id === platformId)?.name || '';
+  }
+
+  /**
+   * Get appropriate text color for light/yellow backgrounds
+   * Simplified approach focusing on known problematic colors
+   */
+  getContrastColor(bgColor) {
+    if (!bgColor) return '#ffffff';
+
+    const lightColors = ['#F4D06F', '#E6C45A', '#F2C811', '#FFDD44', '#FFF8DC', '#FFEB3B'];
+    const normalizedColor = bgColor.toUpperCase();
+
+    // For known light/yellow colors, always use dark text
+    if (lightColors.some(light => normalizedColor.includes(light.replace('#', '')))) {
+      return '#2c2c2c';
+    }
+
+    // Default to white text for other colors
+    return '#ffffff';
   }
 
   clearFilters() {

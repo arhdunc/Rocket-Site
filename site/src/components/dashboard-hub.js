@@ -146,7 +146,7 @@ class DashboardHub {
           id: dashboard.platform.toLowerCase().replace(/\s+/g, '-'),
           name: dashboard.platform,
           color: defaults.color,
-          logo: `/images/${dashboard.platform.toLowerCase().replace(/\s+/g, '-')}-logo.png`,
+          logo: `/src/images/${dashboard.platform.toLowerCase().replace(/\s+/g, '-')}-logo.png`,
         });
       }
     });

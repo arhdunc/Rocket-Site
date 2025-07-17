@@ -8,19 +8,19 @@
       "platform": "Power BI",
       "category": "Sales",
       "tags": ["sales", "revenue", "targets", "weekly", "monthly"],
-      "image": "/images/sales-overview.png",
+      "image": "/images/Sales.png",
       "lastUpdated": "2024-01-15",
       "isActive": true
     },
     {
-      "id": "financial-kpis",
-      "title": "Financial KPIs",
-      "description": "Key financial metrics including P&L, cash flow, and budget variance analysis",
-      "url": "https://tableau.company.com/views/FinancialKPIs/Dashboard1",
+      "id": "financial-overview",
+      "title": "Financial Overview",
+      "description": "P&L statements, budget variance analysis, and cash flow projections",
+      "url": "https://tableau.company.com/views/FinancialOverview/Dashboard",
       "platform": "Tableau",
       "category": "Finance",
-      "tags": ["finance", "kpi", "budget", "profit", "cash-flow"],
-      "image": "/images/financial-kpis.png",
+      "tags": ["finance", "budget", "cash-flow", "profit-loss"],
+      "image": "/images/financial-overview.png",
       "lastUpdated": "2024-01-12",
       "isActive": true
     },
@@ -32,7 +32,7 @@
       "platform": "SharePoint",
       "category": "Marketing",
       "tags": ["customers", "retention", "acquisition", "satisfaction", "demographics"],
-      "image": "/images/customer-analytics.png",
+      "image": "/images/Customer.png",
       "lastUpdated": "2024-01-10",
       "isActive": true
     },
@@ -44,7 +44,7 @@
       "platform": "Kubernetes",
       "category": "Operations",
       "tags": ["monitoring", "uptime", "performance", "errors", "real-time"],
-      "image": "/images/system-health.png",
+      "image": "/images/System Health.png",
       "lastUpdated": "2024-01-16",
       "isActive": true
     },
@@ -56,7 +56,7 @@
       "platform": "Python Dash",
       "category": "Human Resources",
       "tags": ["hr", "employees", "turnover", "recruitment", "diversity"],
-      "image": "/images/hr-metrics.png",
+      "image": "/images/HR.png",
       "lastUpdated": "2024-01-08",
       "isActive": true
     },
@@ -68,8 +68,32 @@
       "platform": "Power BI",
       "category": "Operations",
       "tags": ["inventory", "stock", "suppliers", "reorder", "turnover"],
-      "image": "/images/inventory-tracking.png",
+      "image": "/images/Inventory.png",
       "lastUpdated": "2024-01-14",
+      "isActive": true
+    },
+    {
+      "id": "sales-metrics",
+      "title": "Sales Performance Metrics",
+      "description": "Monthly sales targets, revenue tracking, and team performance indicators",
+      "url": "https://app.powerbi.com/view?r=sales-performance-2024",
+      "platform": "Power BI",
+      "category": "Sales",
+      "tags": ["sales", "performance", "targets", "revenue", "monthly"],
+      "image": "/images/Sales.png",
+      "lastUpdated": "2024-01-15",
+      "isActive": true
+    },
+    {
+      "id": "sample-dashboard",
+      "title": "Sample Dashboard",
+      "description": "This is a sample dashboard entry to demonstrate the markdown-based approach",
+      "url": "https://example.com/dashboard",
+      "platform": "Power BI",
+      "category": "Operations",
+      "tags": ["sample", "test", "demo", "operations"],
+      "image": "/images/Customer.png",
+      "lastUpdated": "2024-01-16",
       "isActive": true
     }
   ],
@@ -128,13 +152,13 @@
       "id": "kubernetes",
       "name": "Kubernetes",
       "color": "#326CE5",
-      "logo": "/images/k8s-logo.png"
+      "logo": ""
     },
     {
       "id": "python-dash",
       "name": "Python Dash",
       "color": "#3F4F75",
-      "logo": "/images/dash-logo.png"
+      "logo": "/images/plotlydash-logo.jpeg"
     }
   ]
 }

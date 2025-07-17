@@ -12,6 +12,13 @@ export default () => html`
   <section class="search-section">
     <div class="container">
       <div class="search-container">
+        <div class="welcome-message">
+          <h1>Welcome to the Dashboard Hub</h1>
+          <p>
+            Search for dashboards by name, category, platform, or tags. Filter by department, data
+            source, or business area to find exactly what you need.
+          </p>
+        </div>
         <div class="search-bar">
           <span class="search-icon">🔍</span>
           <input
