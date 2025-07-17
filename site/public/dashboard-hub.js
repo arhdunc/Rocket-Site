@@ -104,19 +104,19 @@ class DashboardHub {
     const categoryDefaults = {
       Sales: { color: '#66B2A3', icon: '📊' },
       Finance: { color: '#2F7E68', icon: '💰' },
-      Marketing: { color: '#E27D3E', icon: '📈' },
-      Operations: { color: '#7A5C8E', icon: '⚙️' },
-      'Human Resources': { color: '#55406D', icon: '👥' },
+      Marketing: { color: '#ed8b4e', icon: '📈' },
+      Operations: { color: '#b288cf', icon: '⚙️' },
+      'Human Resources': { color: '#5bacfc', icon: '👥' },
       General: { color: '#3E5C76', icon: '📋' },
     };
 
     // Define platform colors
     const platformDefaults = {
-      'Power BI': { color: '#F2C811', logo: '/src/images/powerbi-logo.png' },
-      Tableau: { color: '#E97627', logo: '/src/images/tableau-logo.png' },
-      SharePoint: { color: '#0078D4', logo: '/src/images/sharepoint-logo.png' },
+      'Power BI': { color: '#F2C811', logo: '/images/powerbi-logo.png' },
+      Tableau: { color: '#E97627', logo: '/images/tableau-logo.png' },
+      SharePoint: { color: '#0078D4', logo: '/images/sharepoint-logo.png' },
       Kubernetes: { color: '#326CE5', logo: '' },
-      'Python Dash': { color: '#3F4F75', logo: '/src/images/plotlydash-logo.jpeg' },
+      'Python Dash': { color: '#3F4F75', logo: '/images/plotlydash-logo.jpeg' },
       Unknown: { color: '#9E9E9E', logo: '' },
     };
 
