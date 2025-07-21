@@ -1,6 +1,7 @@
 import { Worker } from 'worker_threads';
+import { fileURLToPath } from 'url';
 
-const workerFilePath = new URL('./renderWorker.js', import.meta.url).pathname;
+const workerFilePath = fileURLToPath(new URL('./renderWorker.js', import.meta.url));
 
 /** @type {Worker | undefined} */
 let workerSingleton;
