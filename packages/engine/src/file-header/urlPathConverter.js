@@ -62,7 +62,7 @@ export function sourceRelativeFilePathToOutputRelativeFilePath(relPath) {
   const rawDirname = path.dirname(relPath);
 
   const dirname = rawDirname
-    .split('/')
+    .split(path.sep)
     .map(part => cleanOrder(part))
     .join('/');
 
