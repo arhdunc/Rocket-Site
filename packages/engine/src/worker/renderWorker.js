@@ -2,6 +2,7 @@ import path from 'path';
 import { parentPort } from 'worker_threads';
 import { mkdir, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
+import { pathToFileURL } from 'url';
 import {
   sourceRelativeFilePathToOutputRelativeFilePath,
   sourceRelativeFilePathToUrl,
@@ -51,7 +52,7 @@ async function renderFile({
       toImportFilePath = await convertHtmlFile(sourceFilePath);
     }
 
-    const { default: content, ...data } = await import(toImportFilePath);
+    const { default: content, ...data } = await import(pathToFileURL(toImportFilePath).href);
     const { layout, openGraphLayout } = data;
     if (data.components) {
       for (const [tagName, importString] of Object.entries(data.components)) {

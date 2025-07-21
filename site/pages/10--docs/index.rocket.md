@@ -1,7 +1,7 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = '10--docs/index.rocket.md';
-import { html, layout } from '../recursive.data.js';
+export const sourceRelativeFilePath = '10--docs\index.rocket.md';
+import { html, layout } from '..\recursive.data.js';
 export { html, layout };
 /* END - Rocket auto generated - do not touch */
 

@@ -8,6 +8,7 @@ import { RocketPreview } from './RocketPreview.js';
 
 import path from 'path';
 import { rm } from 'fs/promises';
+import { pathToFileURL } from 'url';
 import { mergeDeep } from './helpers/mergeDeep.js';
 import { existsSync } from 'fs';
 import { AsyncEventEmitter } from './helpers/AsyncEventEmitter.js';
@@ -120,7 +121,7 @@ export class RocketCli {
   async applyConfigFile() {
     if (this.options.configFile) {
       const configFilePath = path.resolve(this.options.configFile);
-      const fileOptions = (await import(configFilePath)).default;
+      const fileOptions = (await import(pathToFileURL(configFilePath).href)).default;
       this.setOptions(fileOptions);
     } else {
       // make sure all default settings are properly initialized

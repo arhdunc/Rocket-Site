@@ -1,4 +1,5 @@
 import { parentPort } from 'worker_threads';
+import { pathToFileURL } from 'url';
 // import { convertMdFile, convertHtmlFile } from '../converts.js';
 
 /**
@@ -58,7 +59,7 @@ parentPort?.on('message', message => {
         importFilePath = sourceFilePath.replace('.rocket.html', '-converted-html.js');
         // toImportFilePath = await convertHtmlFile(sourceFilePath);
       }
-      const data = await import(importFilePath);
+      const data = await import(pathToFileURL(importFilePath).href);
       // console.log({ data, importFilePath, foo: new Date('2020-01-01') });
       for (const [key, value] of Object.entries(data)) {
         if (key === 'default') {

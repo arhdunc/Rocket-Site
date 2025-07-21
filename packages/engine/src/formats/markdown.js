@@ -3,6 +3,7 @@ import { mdjsProcess } from '@mdjs/core';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
+import { pathToFileURL } from 'url';
 import { addPlugin } from 'plugins-manager';
 import markdown from 'remark-parse';
 import { visit } from 'unist-util-visit';
@@ -105,7 +106,7 @@ export function mdToMdInJs(mdString) {
  */
 export async function mdInJsToMdHtmlInJs(toImportFilePath) {
   // TODO: move this whole function into a worker - so we do not need to load the dom shim into the main thread
-  const { default: content, ...data } = await import(toImportFilePath);
+  const { default: content, ...data } = await import(pathToFileURL(toImportFilePath).href);
 
   const options = {
     setupUnifiedPlugins: [addPlugin(serverCodeParse, undefined, { location: markdown })],

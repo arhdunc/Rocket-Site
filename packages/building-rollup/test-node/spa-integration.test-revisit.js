@@ -7,7 +7,7 @@ import rimraf from 'rimraf';
 import { rollup } from 'rollup';
 // @ts-ignore
 import { startDevServer } from '@web/dev-server';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -55,7 +55,7 @@ describe('spa integration tests', () => {
       before(async () => {
         rimraf.sync(rootDir);
         const configPath = path.join(__dirname, '..', 'demo', testCase);
-        const config = (await import(configPath)).default;
+        const config = (await import(pathToFileURL(configPath).href)).default;
         const bundle = await rollup(config);
         if (Array.isArray(config.output)) {
           await Promise.all([bundle.write(config.output[0]), bundle.write(config.output[1])]);

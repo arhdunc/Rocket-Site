@@ -1,7 +1,7 @@
 import chai from 'chai';
 import path from 'path';
 import { readFile } from 'fs/promises';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { rollup } from 'rollup';
 
 const { expect } = chai;
@@ -27,7 +27,7 @@ async function buildAndWrite(config) {
  */
 async function execute(configString) {
   const configPath = path.join(__dirname, 'fixtures', configString.split('/').join(path.sep));
-  const config = (await import(configPath)).default;
+  const config = (await import(pathToFileURL(configPath).href)).default;
   await buildAndWrite(config);
 
   /**
